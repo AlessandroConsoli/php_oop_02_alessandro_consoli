@@ -3,42 +3,78 @@ class Continent {
 
     public $nameContinent;
 
-    public function __construct($continent){
-        $this->nameContinent = $continent;
+    public function __construct($continente){
+        $this->nameContinent = $continente;
+    }
+
+}
+
+class Country extends Continent{
+
+    public $nameCountry;
+
+    public function __construct($continente, $stato){
+        parent::__construct($continente);
+        $this->nameCountry = $stato;
+    }
+
+
+}
+
+
+class Region extends Country{
+
+    public $nameRegion;
+
+    public function __construct($continente, $stato, $regione){
+        parent::__construct($continente, $stato);
+        $this->nameRegion = $regione;
+    }
+}
+
+
+class Province extends Region{
+
+    public $nameProvince;
+
+    public function __construct($continente, $stato, $regione, $provincia){
+        parent::__construct($continente, $stato, $regione);
+        $this->nameProvince = $provincia;
+    }
+
+}
+
+class City extends Province{
+
+    public $nameCity;
+
+    public function __construct($continente, $stato, $regione, $provincia, $città){
+        parent::__construct($continente, $stato, $regione, $provincia);
+        $this->nameCity = $città;
     }
 
 }
 
 
-class GpsLocation extends Continent{
+class Street extends City{
 
-    public $nameContinent;
-    public $nameCountry;
-    public $nameRegion;
-    public $nameProvince;
-    public $nameCity;
     public $nameStreet;
 
     public function __construct($continente, $stato, $regione, $provincia, $città, $via){
-        $this->nameContinent = $continente;
-        $this->nameCountry = $stato;
-        $this->nameRegion = $regione;
-        $this->nameProvince = $provincia;
-        $this->nameCity = $città;
+        parent::__construct($continente, $stato, $regione, $provincia, $città);
         $this->nameStreet = $via;
     }
 
     public function getMyCurrentLocation(){
-        echo "Mi trovo in " . $this->nameContinent . ", " . $this->nameCountry . ", " . $this->nameRegion . ", " . $this->nameProvince . ", " . $this->nameCity . ", " .$this->nameStreet;
+        echo "Mi trovo in $this->nameContinent, $this->nameCountry, $this->nameRegion, $this->nameProvince, $this->nameCity, $this->nameStreet";
     }
-
 
 }
 
-$myLocation = new GpsLocation('Europa', 'Italia', 'Puglia', 'Ba', 'Bari', 'Strada San Giorgio Martire 2D');
+
+$myLocation = new Street('Europa', 'Italia', 'Puglia', 'Ba', 'Bari', 'Strada San Giorgio Martire 2D');
 
 $myLocation->getMyCurrentLocation();
-
 
 
 
